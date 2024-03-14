@@ -8,8 +8,8 @@ from src.database.schemas import schema_address
 
 class RepositoryAddress:
 
-    def __init__(self, db: Session):
-        self.session = db
+    def __init__(self, session: Session):
+        self.session = session
 
     def create(self, address: schema_address.AddressCreate):
         db_address = (
@@ -25,8 +25,8 @@ class RepositoryAddress:
         self.session.refresh(db_address)
         return db_address
 
-    def list(self, id_owner: int):
-        result = select(model_address.Address).where(model_address.Address.user.id == id_owner)
+    def list(self, page: int, limit: int):
+        result = select(model_address.Address).offset(page).limit(limit)
         return self.session.execute(result).scalars().all()
 
     def get(self, id_address: int, owner_id: int):

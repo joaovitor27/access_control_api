@@ -1,7 +1,7 @@
 from sqlalchemy import Boolean, Column, Integer, String, ForeignKey
 from sqlalchemy.orm import relationship
 
-from database.database import Base
+from src.database.database import Base
 
 
 class Establishment(Base):
@@ -14,6 +14,6 @@ class Establishment(Base):
     phone = Column(String, index=True)
     is_active = Column(Boolean, default=True)
     address_id = Column(Integer, ForeignKey("address.id"))
+    address = relationship("Address", foreign_keys=[address_id], back_populates="establishment")
 
-    owner = relationship("User", back_populates="establishment")
-    address = relationship("Address", back_populates="establishment")
+    user = relationship("User", back_populates="establishment")

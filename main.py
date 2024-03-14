@@ -3,7 +3,7 @@ from fastapi.middleware.cors import CORSMiddleware
 
 from src.database.database import create_db
 from src.database.schemas.schemas import update_forward_refs
-from src.routers import router_address
+from src.routers import router_address, router_establishment, router_user, router_tag
 
 update_forward_refs()
 create_db()
@@ -31,6 +31,7 @@ async def say_hello(name: str):
     return {"message": f"Hello {name}"}
 
 
-# app.include_router(router_users.router)
-app.include_router(router_address.router)
-# app.include_router(router_vehicles.router)
+app.include_router(router_address.router, prefix='/api')
+app.include_router(router_establishment.router, prefix='/api')
+app.include_router(router_user.router, prefix='/api')
+app.include_router(router_tag.router, prefix='/api')

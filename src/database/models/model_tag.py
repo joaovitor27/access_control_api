@@ -1,4 +1,4 @@
-from sqlalchemy import Boolean, Column, Integer, String
+from sqlalchemy import Boolean, Column, Integer, String, ForeignKey
 from sqlalchemy.orm import relationship
 
 from src.database.database import Base
@@ -13,4 +13,4 @@ class Tag(Base):
     type = Column(String, index=True)
     is_active = Column(Boolean, default=True)
 
-    owner = relationship("User", back_populates="tag")
+    user = relationship("User", back_populates="tag")
